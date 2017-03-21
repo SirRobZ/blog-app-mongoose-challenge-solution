@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 // this module
 const should = chai.should();
 
-const {Blogpost} = require('../models');
+const {BlogPost} = require('../models');
 const {app, runServer, closeServer} = require('../server');
 const {TEST_DATSBASE_URL} = require('../config');
 
@@ -21,7 +21,7 @@ function seedBlogPostData() {
 		seedData.push(generateBlogPostData());
 	}
 	//this will return a promise
-	return Blogpost.insertMany(seedData);
+	return BlogPost.insertMany(seedData);
 }
 
 // generate an object represnting a blogpost.
@@ -93,7 +93,7 @@ describe('Blogpost API resource', function() {
       		res.should.have.status(200);
       		//otherwise our db seeding didn't work
       		res.body.blogposts.should.have.length.of.at.least(1);
-      		return Blogpost.count();
+      		return BlogPost.count();
       	})
       	.then(function(count) {
       		res.body.blogposts.should.have.length.of(count);
@@ -118,7 +118,7 @@ describe('Blogpost API resource', function() {
   						'id', 'author.firstName', 'author.lastName', 'title', 'content', 'created')
   				});
   				resBlogpost = res.body.blogposts[0];
-  				return Blogpost.findById(resBlogpost.id);
+  				return BlogPost.findById(resBlogpost.id);
   			})
   			.then(function(blogpost) {
   				resBlogpost.id.should.equal(blogpost.id);
@@ -152,7 +152,7 @@ describe('Blogpost API resource', function() {
     			res.body.id.should.not.be.null;
     			res.body.title.should.equal(newBlogpost.title);
     			res.body.content.should.equal(newBlogpost.content);
-    			return Blogpost.findById(res.body.id);
+    			return BlogPost.findById(res.body.id);
     		})
     		.then(function(blogpost) {
     			 blogpost.author.should.equal(newBlogpost.author);
@@ -175,7 +175,7 @@ describe('Blogpost API resource', function() {
     		content: 'PLEASE ALSO BE DIFFERENT'
     	};
 
-    	return Blogpost
+    	return BlogPost
 	    	.fincOne()
 	    	.exec()
 	    	.then(function(blogpost) {
@@ -189,7 +189,7 @@ describe('Blogpost API resource', function() {
 	    .then(function(res) {
 	    	res.should.have.status(204);
 
-	    	return Blogpost.findById(updateData.id).exec();
+	    	return BlogPost.findById(updateData.id).exec();
 	    })
 	    .then(function(blogpost) {
 	    	blogpost.title.should.equal(updateData.title);
@@ -208,7 +208,7 @@ describe('Blogpost API resource', function() {
 
     	let blogpost;
 
-    	return Blogpost
+    	return BlogPost
     		.fincOne()
     		.exec()
     		.then(function(_blogpost) {
@@ -217,7 +217,7 @@ describe('Blogpost API resource', function() {
     		})
     		.then(function(res) {
     			res.should.have.status(204);
-    			return Blogpost.findById(blogpost.id).exec();
+    			return BlogPost.findById(blogpost.id).exec();
     		})
     		.then(function(_blogpost) {
     			// when a variable's value is null, chaining `should`
