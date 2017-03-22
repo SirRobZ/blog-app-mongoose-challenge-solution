@@ -8,7 +8,7 @@ const {BlogPost} = require('./models');
 
 const app = express();
 
-app.use(morgan('common'));
+// app.use(morgan('common'));
 app.use(bodyParser.json());
 
 mongoose.Promise = global.Promise;
