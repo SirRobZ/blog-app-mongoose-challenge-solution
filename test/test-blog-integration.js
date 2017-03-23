@@ -42,7 +42,7 @@ function generateBlogPostData() {
 // this function deletes the entire database.
 // we'll call it in an `afterEach` block below
 // to ensure  data from one test does not stick
-// around for next one
+// around for next one!
 function tearDownDb() {
 	console.warn('Delteing database');
 	return mongoose.connection.dropDatabase();
